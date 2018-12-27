@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2048
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movety.API", "Movety.API\Movety.API.csproj", "{2A4171A3-1381-4EE6-A0DB-10F746FB44B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movety.Domain", "Movety.Domain\Movety.Domain.csproj", "{9FAF867D-3A7D-4ED7-A788-18488838CA61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movety.Persistence", "Movety.Persistence\Movety.Persistence.csproj", "{2777808A-40CA-4C66-B6DF-0F2F4DB60572}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A4171A3-1381-4EE6-A0DB-10F746FB44B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A4171A3-1381-4EE6-A0DB-10F746FB44B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A4171A3-1381-4EE6-A0DB-10F746FB44B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A4171A3-1381-4EE6-A0DB-10F746FB44B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FAF867D-3A7D-4ED7-A788-18488838CA61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FAF867D-3A7D-4ED7-A788-18488838CA61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FAF867D-3A7D-4ED7-A788-18488838CA61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FAF867D-3A7D-4ED7-A788-18488838CA61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2777808A-40CA-4C66-B6DF-0F2F4DB60572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2777808A-40CA-4C66-B6DF-0F2F4DB60572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2777808A-40CA-4C66-B6DF-0F2F4DB60572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2777808A-40CA-4C66-B6DF-0F2F4DB60572}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA3DBB1E-300E-488C-9DE9-2ECD85B5F690}
+	EndGlobalSection
+EndGlobal
