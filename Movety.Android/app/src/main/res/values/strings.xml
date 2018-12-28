@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Movety</string>
+    <string name="title_activity_maps">Map</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_chat">Chat Fragment</string>
+    <string name="text_profile">Profile Fragment</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_notifications">Notifications</string>
+    <string name="title_activity_training_proposal_details">TrainingProposalDetails</string>
+    <string name="training_title">Title</string>
+    <string name="large_text">
+        "Wspin na Tarnogaju.\n\n"
+
+        "Szukam osoby do wspolnej wspinaczki linowej w Centrum Wspinaczkowym Tarnogaj. \n\n"
+        "Moj poziom to mniej wiecej drogi w przedziale 5a-6a, szukam osoby o podobnym umiejetnosciach.\n\n"
+        "Waze 80kg, wiec odpowiednia waga partner to 60-95kg.\n"
+
+
+        "Bold, graphic, intentional.\n\n"
+
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus bibendum sem sen"
+        "Nunc nulla ante, varius sed massa eu, suscipit efficitur augue. Etiam ut magna et sapien ornare tincidunt eget ut libero \n\n"
+
+        "Suspendisse hendrerit viverra tincidunt. Sed iaculis iaculis elit, at commodo odio laoreet sed.
+        Pellentesque ut dolor eu est sollicitudin gravida. Fusce sit amet commodo quam, sit amet finibus metus.
+        Mauris eu arcu quis elit malesuada consectetur eu in elit. Proin venenatis arcu lacinia, pretium dui non,
+        vehicula nisi. Quisque sit amet lectus dapibus, gravida velit eu, laoreet nunc."
+    </string>
+    <string name="action_settings">Settings</string>
+</resources>
