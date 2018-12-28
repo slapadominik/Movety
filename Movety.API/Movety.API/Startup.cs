@@ -18,6 +18,7 @@ using Movety.Domain.Services.Interfaces;
 using Movety.Persistence.DbContexts;
 using Movety.Persistence.Repositories;
 using Movety.Persistence.Repositories.Interfaces;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Movety.API
 {
@@ -46,6 +47,13 @@ namespace Movety.API
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
             services.AddScoped<ITrainingProposalsService, TrainingProposalsService>();
+            services.AddScoped<ITrainingProposalsLikesService, TrainingProposalsLikesService>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.CustomSchemaIds(x => x.FullName);
+            });
 
         }
 
@@ -60,8 +68,17 @@ namespace Movety.API
             {
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");

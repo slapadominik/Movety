@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using Movety.Persistence.DAO;
+
+namespace Movety.Persistence.Repositories.Interfaces
+{
+    public interface ITrainingProposalsLikesRepository
+    {
+        void Add(TrainingProposalsLikes trainingProposalsLikes);
+        IEnumerable<TrainingProposalsLikes> GetAll();
+        IEnumerable<TrainingProposalsLikes> GetByTrainingProposalId(Guid id);
+    }
+}

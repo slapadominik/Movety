@@ -8,6 +8,9 @@ namespace Movety.Persistence.Repositories
         public ILocationRepository Locations { get; }
         public ISportFieldRepository SportFields { get; }
         public ITrainingProposalsRepository TrainingProposals { get; }
+        public ITrainingProposalsLikesRepository TrainingProposalsLikes { get; }
+        public IAthleteRepository Athletes { get; }
+
         private readonly TrainingsDbContext _context;
 
         public UnitOfWork(TrainingsDbContext context)
@@ -16,6 +19,8 @@ namespace Movety.Persistence.Repositories
             Locations = new LocationRepository(context);
             SportFields = new SportFieldRepository(context);
             TrainingProposals = new TrainingProposalsRepository(context);
+            TrainingProposalsLikes = new TrainingProposalsLikesRepository(context);
+            Athletes = new AthleteRepository(context);
         }
 
         public int Complete()
