@@ -18,13 +18,15 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
-    Context context;
-    List<com.example.domin.movety.api.output.TrainingProposal> trainingProposals;
+    public static final String TRAINING_ID = "TRAINING_ID";
     public static final String TITLE_TRAINING = "TITLE_TRAINING";
     public static final String TRAINING_AUTHOR = "TRAINING_AUTHOR";
     public static final String TRAINING_DATEFROM = "TITLE_DATEFROM";
     public static final String TRAINING_DATETO = "TITLE_DATETO";
     public static final String TRAINING_DESCRIPTION = "TITLE_DESCRIPTION";
+
+    Context context;
+    private List<com.example.domin.movety.api.output.TrainingProposal> trainingProposals;
 
     public RecyclerViewAdapter(Context context, List<TrainingProposal> trainingProposals){
         this.context = context;
@@ -44,18 +46,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View v) {
                 Intent intent = new Intent(context, TrainingProposalDetails.class);
                 Bundle extras = new Bundle();
+                String id = trainingProposals.get(vHolder.getAdapterPosition()).getId();
                 String trainingTitle = trainingProposals.get(vHolder.getAdapterPosition()).getTitle();
                 String trainingAuthor = trainingProposals.get(vHolder.getAdapterPosition()).getAuthor();
                 String trainingDatefrom = trainingProposals.get(vHolder.getAdapterPosition()).getDatetimeFrom();
                 String trainingDateto = trainingProposals.get(vHolder.getAdapterPosition()).getDatetimeTo();
                 String trainingDescription = trainingProposals.get(vHolder.getAdapterPosition()).getDescription();
                 Log.i("MOVETYAPI", "Item clicked: "+trainingProposals.get(vHolder.getAdapterPosition()).toString());
+                extras.putString(TRAINING_ID, id);
                 extras.putString(TITLE_TRAINING, trainingTitle);
                 extras.putString(TRAINING_AUTHOR, trainingAuthor);
                 extras.putString(TRAINING_DATEFROM, trainingDatefrom);
                 extras.putString(TRAINING_DATETO, trainingDateto);
                 extras.putString(TRAINING_DESCRIPTION, trainingDescription);
                 intent.putExtras(extras);
+
                 context.startActivity(intent);
             }
         });

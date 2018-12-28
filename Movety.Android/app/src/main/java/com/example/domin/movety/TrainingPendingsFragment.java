@@ -65,7 +65,6 @@ public class TrainingPendingsFragment extends Fragment {
             @Override
             public void onResponse(Call<List<com.example.domin.movety.api.output.TrainingProposal>> call, Response<List<TrainingProposal>> response) {
                 Log.i("MOVETYAPI", "size: "+response.body());
-                Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
                 trainingProposals = response.body();
                 for (int i=0; i<trainingProposals.size(); i++){
                     Log.i("MOVETYAPI", trainingProposals.get(i).toString());
