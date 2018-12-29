@@ -67,5 +67,18 @@ namespace Movety.Domain.Services
 
             return trainingProposalsLike;
         }
+
+        public IEnumerable<TrainingProposal> GetLikedTrainingProposalsByUserId(Guid id)
+        {
+            List<TrainingProposal> trainingProposals = new List<TrainingProposal>();
+            var trainingProposalsLikesDAO = _unitOfWork.TrainingProposalsLikes.Find(x => x.UserId == id);
+            foreach (var like in trainingProposalsLikesDAO)
+            {
+                var trainingProposalDAO = _unitOfWork.TrainingProposals.Get(like.TrainingProposalsId);
+                trainingProposals.Add(_mapper.Map<TrainingProposal>(trainingProposalDAO));
+            }
+
+            return trainingProposals;
+        }
     }
 }

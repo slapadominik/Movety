@@ -59,10 +59,10 @@ namespace Movety.Persistence.DbContexts
             var location2 = Guid.NewGuid();
             var location3 = Guid.NewGuid();
 
-            modelBuilder.Entity<Location>().HasData(new Location { Id = location1, Created = DateTime.Now, Latitude = 51.107883, Longitude = 13.038538 });
-            modelBuilder.Entity<Location>().HasData(new Location { Id = location2, Created = DateTime.Now, Latitude = 57.107883, Longitude = 20.038538 });
+            modelBuilder.Entity<Location>().HasData(new Location { Id = location1, Created = DateTime.Now, Latitude = 50.102075, Longitude = 18.509135 });
+            modelBuilder.Entity<Location>().HasData(new Location { Id = location2, Created = DateTime.Now, Latitude = 50.094845, Longitude = 18.519753 });
             modelBuilder.Entity<Location>().HasData(new Location { Id = Guid.NewGuid(), Created = DateTime.Now, Latitude = 88.107883, Longitude = 40.038538 });
-            modelBuilder.Entity<Location>().HasData(new Location { Id = location3, Created = DateTime.Now, Latitude = 54.107883, Longitude = 12.038538 });
+            modelBuilder.Entity<Location>().HasData(new Location { Id = location3, Created = DateTime.Now, Latitude = 51.114697, Longitude = 17.046592 });
 
             modelBuilder.Entity<SportField>().HasData(new SportField { Id = 1, Created = DateTime.Now, Name = "cycling" });
             modelBuilder.Entity<SportField>().HasData(new SportField { Id = 2, Created = DateTime.Now, Name = "swimming" });
@@ -117,6 +117,7 @@ namespace Movety.Persistence.DbContexts
             var userId1 = Guid.NewGuid();
             var userId2 = Guid.NewGuid();
             var userId3 = Guid.NewGuid();
+            var userId4 = Guid.Parse("38e88f51-a4bd-4163-be6e-cdaad099ba10");
 
             modelBuilder.Entity<User>().HasData(new User
             {
@@ -146,6 +147,17 @@ namespace Movety.Persistence.DbContexts
                 PasswordHash = "asdasdasd123213",
                 SecurityStamp = "asd123",
                 Username = "kowalskijan3"
+            });
+
+
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = userId4,
+                Created = DateTime.Now,
+                Email = "jankowalski2@gmail.com",
+                PasswordHash = "asdasdasd123213",
+                SecurityStamp = "asd123",
+                Username = "kowalskijan2"
             });
 
             modelBuilder.Entity<Athlethe>().HasData(
@@ -184,6 +196,19 @@ namespace Movety.Persistence.DbContexts
                     Description = "Narty, siatkowka, koszykowka - sport.",
                     Gender = 'm',
                     FirstName = "Wojciech",
+                    LastName = "Nowak"
+                });
+
+            modelBuilder.Entity<Athlethe>().HasData(
+                new Athlethe
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = userId4,
+                    Created = DateTime.Now,
+                    Birthdate = new DateTime(1993, 11, 11),
+                    Description = "Narty, siatkowka, koszykowka - sport.",
+                    Gender = 'm',
+                    FirstName = "Damian",
                     LastName = "Nowak"
                 });
 

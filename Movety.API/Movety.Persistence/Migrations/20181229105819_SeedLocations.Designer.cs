@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Movety.Persistence.DbContexts;
 
 namespace Movety.Persistence.Migrations
 {
     [DbContext(typeof(TrainingsDbContext))]
-    partial class TrainingsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181229105819_SeedLocations")]
+    partial class SeedLocations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,47 +53,36 @@ namespace Movety.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("df73185c-e294-468e-8e8d-36c40b404736"),
+                            Id = new Guid("8a34998d-6e11-4ea6-8853-e8fa484b94c1"),
                             Birthdate = new DateTime(2002, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 843, DateTimeKind.Local).AddTicks(7837),
+                            Created = new DateTime(2018, 12, 29, 11, 58, 18, 803, DateTimeKind.Local).AddTicks(879),
                             Description = "Moje zainteresowania to....",
                             FirstName = "Jan",
                             Gender = "m",
                             LastName = "Kowalski",
-                            UserId = new Guid("7d46d491-2166-451e-beaf-a57bb10cb91c")
+                            UserId = new Guid("1bf5a1af-ed72-45f3-ac36-03bdc7baaa49")
                         },
                         new
                         {
-                            Id = new Guid("4e2ae5fb-6dac-4b93-b0ee-63df0f413976"),
+                            Id = new Guid("ae5331bc-46d4-4b96-b7ff-a57c313539c5"),
                             Birthdate = new DateTime(1985, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 844, DateTimeKind.Local).AddTicks(278),
+                            Created = new DateTime(2018, 12, 29, 11, 58, 18, 803, DateTimeKind.Local).AddTicks(3111),
                             Description = "Narty, siatkowka, koszykowka - sport.",
                             FirstName = "Ania",
                             Gender = "m",
                             LastName = "Boruc",
-                            UserId = new Guid("99dbdda5-86d0-422a-b1b7-3d1f7719e446")
+                            UserId = new Guid("b8e23deb-fcbd-4988-b3f0-5e6925d36266")
                         },
                         new
                         {
-                            Id = new Guid("2922dd1a-e768-41df-98ff-c827c4b64d46"),
+                            Id = new Guid("6c87fced-e815-4c49-bb4b-8b250731a575"),
                             Birthdate = new DateTime(1989, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 844, DateTimeKind.Local).AddTicks(327),
+                            Created = new DateTime(2018, 12, 29, 11, 58, 18, 803, DateTimeKind.Local).AddTicks(3156),
                             Description = "Narty, siatkowka, koszykowka - sport.",
                             FirstName = "Wojciech",
                             Gender = "m",
                             LastName = "Nowak",
-                            UserId = new Guid("b7d2a6c1-2ba1-4aa0-83ea-ffa0434f66c5")
-                        },
-                        new
-                        {
-                            Id = new Guid("7c41511c-a39b-4225-8f4c-c00409adffb6"),
-                            Birthdate = new DateTime(1993, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 844, DateTimeKind.Local).AddTicks(347),
-                            Description = "Narty, siatkowka, koszykowka - sport.",
-                            FirstName = "Damian",
-                            Gender = "m",
-                            LastName = "Nowak",
-                            UserId = new Guid("38e88f51-a4bd-4163-be6e-cdaad099ba10")
+                            UserId = new Guid("3a002149-7a55-4b81-943f-d497a606cc77")
                         });
                 });
 
@@ -117,29 +108,29 @@ namespace Movety.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1efc45d5-e79b-40d5-9b85-82cb76143737"),
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 840, DateTimeKind.Local).AddTicks(8901),
+                            Id = new Guid("98285577-8523-45fd-b90b-6c0f8fa786b6"),
+                            Created = new DateTime(2018, 12, 29, 11, 58, 18, 800, DateTimeKind.Local).AddTicks(4680),
                             Latitude = 50.102074999999999,
                             Longitude = 18.509135000000001
                         },
                         new
                         {
-                            Id = new Guid("cd056011-4267-4b38-9666-0116123cb563"),
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 842, DateTimeKind.Local).AddTicks(6398),
+                            Id = new Guid("d4512864-0a1b-4a34-92b1-e8d1447f9466"),
+                            Created = new DateTime(2018, 12, 29, 11, 58, 18, 802, DateTimeKind.Local).AddTicks(589),
                             Latitude = 50.094844999999999,
                             Longitude = 18.519753000000001
                         },
                         new
                         {
-                            Id = new Guid("b90f325f-2bad-47f0-8124-4c3235754bbf"),
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 842, DateTimeKind.Local).AddTicks(6509),
+                            Id = new Guid("2709b89c-4cd0-4037-a1e9-481864e5b603"),
+                            Created = new DateTime(2018, 12, 29, 11, 58, 18, 802, DateTimeKind.Local).AddTicks(684),
                             Latitude = 88.107883000000001,
                             Longitude = 40.038538000000003
                         },
                         new
                         {
-                            Id = new Guid("778320cc-8aaa-4460-9465-977346985be0"),
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 842, DateTimeKind.Local).AddTicks(6525),
+                            Id = new Guid("e77a53ba-5e77-4836-9f49-dd49b82a40b1"),
+                            Created = new DateTime(2018, 12, 29, 11, 58, 18, 802, DateTimeKind.Local).AddTicks(704),
                             Latitude = 51.114697,
                             Longitude = 17.046592
                         });
@@ -166,25 +157,25 @@ namespace Movety.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 842, DateTimeKind.Local).AddTicks(8281),
+                            Created = new DateTime(2018, 12, 29, 11, 58, 18, 802, DateTimeKind.Local).AddTicks(2350),
                             Name = "cycling"
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 842, DateTimeKind.Local).AddTicks(9697),
+                            Created = new DateTime(2018, 12, 29, 11, 58, 18, 802, DateTimeKind.Local).AddTicks(3626),
                             Name = "swimming"
                         },
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 842, DateTimeKind.Local).AddTicks(9734),
+                            Created = new DateTime(2018, 12, 29, 11, 58, 18, 802, DateTimeKind.Local).AddTicks(3659),
                             Name = "climbing"
                         },
                         new
                         {
                             Id = 4,
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 842, DateTimeKind.Local).AddTicks(9751),
+                            Created = new DateTime(2018, 12, 29, 11, 58, 18, 802, DateTimeKind.Local).AddTicks(3675),
                             Name = "iceskating"
                         });
                 });
@@ -225,39 +216,39 @@ namespace Movety.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ae30c6a1-4da8-424a-918a-17b6e0e7d754"),
+                            Id = new Guid("2e42a82a-d3c6-43b0-9778-f7e20bdcad5d"),
                             Author = "Jan Kowalski",
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 843, DateTimeKind.Local).AddTicks(1170),
+                            Created = new DateTime(2018, 12, 29, 11, 58, 18, 802, DateTimeKind.Local).AddTicks(5021),
                             DatetimeFrom = new DateTime(2019, 5, 3, 8, 20, 0, 0, DateTimeKind.Unspecified),
                             DatetimeTo = new DateTime(2019, 5, 3, 8, 20, 0, 0, DateTimeKind.Unspecified),
                             Description = "Lorem ipsum lorem ipsum",
-                            LocationId = new Guid("1efc45d5-e79b-40d5-9b85-82cb76143737"),
+                            LocationId = new Guid("98285577-8523-45fd-b90b-6c0f8fa786b6"),
                             MaxParticipants = 4,
                             SportFieldId = 1,
                             Title = "Rower we Wro!"
                         },
                         new
                         {
-                            Id = new Guid("a6645f56-0316-43a7-aa41-64f7ee58eaf1"),
+                            Id = new Guid("2aa308fe-aaf2-4d8e-8c51-3f4fece260fb"),
                             Author = "Kamil Jacewicz",
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 843, DateTimeKind.Local).AddTicks(3939),
+                            Created = new DateTime(2018, 12, 29, 11, 58, 18, 802, DateTimeKind.Local).AddTicks(7601),
                             DatetimeFrom = new DateTime(2020, 3, 5, 15, 20, 0, 0, DateTimeKind.Unspecified),
                             DatetimeTo = new DateTime(2020, 3, 5, 17, 20, 0, 0, DateTimeKind.Unspecified),
                             Description = "Lorem ipsum lorem ipsum2",
-                            LocationId = new Guid("cd056011-4267-4b38-9666-0116123cb563"),
+                            LocationId = new Guid("d4512864-0a1b-4a34-92b1-e8d1447f9466"),
                             MaxParticipants = 5,
                             SportFieldId = 2,
                             Title = "Wspinaczka na Tarnogaju"
                         },
                         new
                         {
-                            Id = new Guid("4a4066b8-402d-46cc-b167-7d02aa426689"),
+                            Id = new Guid("2b6bae7d-ab5e-4253-b8dd-3569031da4ae"),
                             Author = "Anna Kowalska",
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 843, DateTimeKind.Local).AddTicks(3997),
+                            Created = new DateTime(2018, 12, 29, 11, 58, 18, 802, DateTimeKind.Local).AddTicks(7655),
                             DatetimeFrom = new DateTime(2019, 4, 12, 15, 20, 0, 0, DateTimeKind.Unspecified),
                             DatetimeTo = new DateTime(2019, 4, 12, 17, 20, 0, 0, DateTimeKind.Unspecified),
                             Description = "Zapraszam wszystkich na łyżwy na godzinę 19:30. ",
-                            LocationId = new Guid("778320cc-8aaa-4460-9465-977346985be0"),
+                            LocationId = new Guid("e77a53ba-5e77-4836-9f49-dd49b82a40b1"),
                             MaxParticipants = 10,
                             SportFieldId = 4,
                             Title = "Łyżwy w Pszowie"
@@ -300,38 +291,38 @@ namespace Movety.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            TrainingProposalsId = new Guid("ae30c6a1-4da8-424a-918a-17b6e0e7d754"),
-                            UserId = new Guid("7d46d491-2166-451e-beaf-a57bb10cb91c"),
+                            TrainingProposalsId = new Guid("2e42a82a-d3c6-43b0-9778-f7e20bdcad5d"),
+                            UserId = new Guid("1bf5a1af-ed72-45f3-ac36-03bdc7baaa49"),
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            TrainingProposalsId = new Guid("ae30c6a1-4da8-424a-918a-17b6e0e7d754"),
-                            UserId = new Guid("99dbdda5-86d0-422a-b1b7-3d1f7719e446"),
+                            TrainingProposalsId = new Guid("2e42a82a-d3c6-43b0-9778-f7e20bdcad5d"),
+                            UserId = new Guid("b8e23deb-fcbd-4988-b3f0-5e6925d36266"),
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            TrainingProposalsId = new Guid("ae30c6a1-4da8-424a-918a-17b6e0e7d754"),
-                            UserId = new Guid("b7d2a6c1-2ba1-4aa0-83ea-ffa0434f66c5"),
+                            TrainingProposalsId = new Guid("2e42a82a-d3c6-43b0-9778-f7e20bdcad5d"),
+                            UserId = new Guid("3a002149-7a55-4b81-943f-d497a606cc77"),
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            TrainingProposalsId = new Guid("a6645f56-0316-43a7-aa41-64f7ee58eaf1"),
-                            UserId = new Guid("7d46d491-2166-451e-beaf-a57bb10cb91c"),
+                            TrainingProposalsId = new Guid("2aa308fe-aaf2-4d8e-8c51-3f4fece260fb"),
+                            UserId = new Guid("1bf5a1af-ed72-45f3-ac36-03bdc7baaa49"),
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            TrainingProposalsId = new Guid("a6645f56-0316-43a7-aa41-64f7ee58eaf1"),
-                            UserId = new Guid("99dbdda5-86d0-422a-b1b7-3d1f7719e446"),
+                            TrainingProposalsId = new Guid("2aa308fe-aaf2-4d8e-8c51-3f4fece260fb"),
+                            UserId = new Guid("b8e23deb-fcbd-4988-b3f0-5e6925d36266"),
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            TrainingProposalsId = new Guid("a6645f56-0316-43a7-aa41-64f7ee58eaf1"),
-                            UserId = new Guid("b7d2a6c1-2ba1-4aa0-83ea-ffa0434f66c5"),
+                            TrainingProposalsId = new Guid("2aa308fe-aaf2-4d8e-8c51-3f4fece260fb"),
+                            UserId = new Guid("3a002149-7a55-4b81-943f-d497a606cc77"),
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -360,8 +351,8 @@ namespace Movety.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7d46d491-2166-451e-beaf-a57bb10cb91c"),
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 843, DateTimeKind.Local).AddTicks(4600),
+                            Id = new Guid("1bf5a1af-ed72-45f3-ac36-03bdc7baaa49"),
+                            Created = new DateTime(2018, 12, 29, 11, 58, 18, 802, DateTimeKind.Local).AddTicks(8204),
                             Email = "jankowalski@gmail.com",
                             PasswordHash = "asdasdasd123213",
                             SecurityStamp = "asd123",
@@ -369,8 +360,8 @@ namespace Movety.Persistence.Migrations
                         },
                         new
                         {
-                            Id = new Guid("99dbdda5-86d0-422a-b1b7-3d1f7719e446"),
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 843, DateTimeKind.Local).AddTicks(6713),
+                            Id = new Guid("b8e23deb-fcbd-4988-b3f0-5e6925d36266"),
+                            Created = new DateTime(2018, 12, 29, 11, 58, 18, 802, DateTimeKind.Local).AddTicks(9878),
                             Email = "kamilszybki@gmail.com",
                             PasswordHash = "asdasdasd123213",
                             SecurityStamp = "asd123",
@@ -378,21 +369,12 @@ namespace Movety.Persistence.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b7d2a6c1-2ba1-4aa0-83ea-ffa0434f66c5"),
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 843, DateTimeKind.Local).AddTicks(6758),
+                            Id = new Guid("3a002149-7a55-4b81-943f-d497a606cc77"),
+                            Created = new DateTime(2018, 12, 29, 11, 58, 18, 802, DateTimeKind.Local).AddTicks(9915),
                             Email = "jankowalski2@gmail.com",
                             PasswordHash = "asdasdasd123213",
                             SecurityStamp = "asd123",
                             Username = "kowalskijan3"
-                        },
-                        new
-                        {
-                            Id = new Guid("38e88f51-a4bd-4163-be6e-cdaad099ba10"),
-                            Created = new DateTime(2018, 12, 29, 13, 11, 50, 843, DateTimeKind.Local).AddTicks(6774),
-                            Email = "jankowalski2@gmail.com",
-                            PasswordHash = "asdasdasd123213",
-                            SecurityStamp = "asd123",
-                            Username = "kowalskijan2"
                         });
                 });
 

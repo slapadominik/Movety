@@ -10,6 +10,9 @@ public class TrainingProposal {
     private String Title;
     @SerializedName("author")
     private String Author;
+    @SerializedName("location")
+    private Location Location;
+
     @SerializedName("datetimeFrom")
     private String DatetimeFrom;
     @SerializedName("datetimeTo")
@@ -22,14 +25,23 @@ public class TrainingProposal {
     public TrainingProposal(){
     }
 
-    public TrainingProposal(String id, String title, String author, String datetimeFrom, String datetimeTo, String description, String maxParticipants) {
+    public TrainingProposal(String id, String title, String author, com.example.domin.movety.api.output.Location location, String datetimeFrom, String datetimeTo, String description, String maxParticipants) {
         Id = id;
         Title = title;
         Author = author;
+        Location = location;
         DatetimeFrom = datetimeFrom;
         DatetimeTo = datetimeTo;
         Description = description;
         MaxParticipants = maxParticipants;
+    }
+
+    public com.example.domin.movety.api.output.Location getLocation() {
+        return Location;
+    }
+
+    public void setLocation(com.example.domin.movety.api.output.Location location) {
+        Location = location;
     }
 
     public String getTitle() {
@@ -94,6 +106,7 @@ public class TrainingProposal {
                 "Id='" + Id + '\'' +
                 ", Title='" + Title + '\'' +
                 ", Author='" + Author + '\'' +
+                ", Location=" + Location +
                 ", DatetimeFrom='" + DatetimeFrom + '\'' +
                 ", DatetimeTo='" + DatetimeTo + '\'' +
                 ", Description='" + Description + '\'' +

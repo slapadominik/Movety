@@ -27,6 +27,11 @@ namespace Movety.Persistence.Repositories
             return _context.TrainingProposalsLikes.ToList();
         }
 
+        public IEnumerable<TrainingProposalsLikes> Find(Func<TrainingProposalsLikes, bool> predicate)
+        {
+            return _context.TrainingProposalsLikes.Where(predicate);
+        }
+
         public IEnumerable<TrainingProposalsLikes> GetByTrainingProposalId(Guid id)
         {
             return _context.TrainingProposalsLikes.Where(x => x.TrainingProposalsId == id);

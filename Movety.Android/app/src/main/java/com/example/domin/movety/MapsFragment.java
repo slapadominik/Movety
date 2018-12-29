@@ -18,14 +18,18 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.domin.movety.api.MovetyApiClient;
+import com.example.domin.movety.api.output.TrainingProposal;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -46,8 +50,19 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -70,12 +85,17 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private String TAG = "MAPS_TAG";
     private static final float DEFAULT_ZOOM = 15f;
     private ConstraintLayout my_info_window;
+    private List<com.example.domin.movety.api.output.TrainingProposal> trainingProposals = new ArrayList<>();
+    private HashMap<Marker, Integer> mHashMap = new HashMap<Marker, Integer>();
+    private TextView tv_marker_training_title;
+    private TextView tv_marker_training_author;
+    private TextView tv_marker_training_datefrom;
+    private TextView tv_marker_training_dateto;
 
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     public MapsFragment() {
-        // Required empty public constructor
     }
 
     // TODO: Rename and change types and number of parameters
@@ -89,6 +109,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_maps, container, false);
         my_info_window = mView.findViewById(R.id.my_info_window);
+        tv_marker_training_title = mView.findViewById(R.id.marker_training_title);
+        tv_marker_training_author = mView.findViewById(R.id.marker_training_author);
+        tv_marker_training_datefrom = mView.findViewById(R.id.marker_training_datefrom);
+        tv_marker_training_dateto = mView.findViewById(R.id.marker_training_dateto);
         getLocationPermisssion();
         return mView;
     }
@@ -109,7 +133,44 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             }
             mGoogleMap.setMyLocationEnabled(true);
             mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
+            getTrainingProposalsFromApi(mGoogleMap);
         }
+    }
+
+    private void getTrainingProposalsFromApi(GoogleMap mGoogleMap){
+        Gson gson = new GsonBuilder().serializeNulls().setDateFormat(DateFormat.LONG).create();
+
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl("https://movetyapi.azurewebsites.net/")
+                .addConverterFactory(GsonConverterFactory.create(gson));
+        Retrofit retrofit = builder.build();
+
+        MovetyApiClient client = retrofit.create(MovetyApiClient.class);
+        Call<List<com.example.domin.movety.api.output.TrainingProposal>> call = client.getTrainingProposals();
+
+        call.enqueue(new Callback<List<com.example.domin.movety.api.output.TrainingProposal>>() {
+            @Override
+            public void onResponse(Call<List<com.example.domin.movety.api.output.TrainingProposal>> call, Response<List<TrainingProposal>> response) {
+                Log.i("MOVETYAPI", "size: "+response.body());
+                trainingProposals = response.body();
+                Toast.makeText(getContext(), "Success map training prop", Toast.LENGTH_SHORT).show();
+                for (int i=0; i<trainingProposals.size(); i++){
+                    Log.i("MOVETYAPI", trainingProposals.get(i).toString());
+                    TrainingProposal trainingprop = trainingProposals.get(i);
+                    Marker marker = mGoogleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(trainingprop.getLocation().getLatitude(), trainingprop.getLocation().getLongitude()))
+                            .title(trainingprop.getTitle())
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_bike_map)));
+                    mHashMap.put(marker, i);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<com.example.domin.movety.api.output.TrainingProposal>> call, Throwable t) {
+                Toast.makeText(getContext(), "Error: cos poszlo nie tak", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initMap(){
@@ -160,16 +221,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 .position(latLng)
                 .title(title);
 
-        LatLng workout1Position = new LatLng(latLng.latitude+0.002, latLng.longitude+0.002);
-        LatLng workout2Position = new LatLng(latLng.latitude-0.002, latLng.longitude+0.002);
-        MarkerOptions workout1 = new MarkerOptions()
-                .position(workout2Position)
-                .title("Rower")
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_bike_map));
-        MarkerOptions workout2 = new MarkerOptions()
-                .position(workout1Position)
-                .title("Rower")
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_bike_map));
 
         CircleOptions circleOptions = new CircleOptions()
                 .center(latLng)
@@ -186,17 +237,24 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 my_info_window.setVisibility(View.GONE);
             }
         });
-        mGoogleMap.setOnMarkerClickListener(marker -> {
-            if (marker.getTitle().equals("Rower")) // if marker source is clicked
-                my_info_window.setVisibility(View.VISIBLE);
-            return true;
+        mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                int pos = mHashMap.get(marker);
+                TrainingProposal trainingProposal = trainingProposals.get(pos);
+                if (trainingProposal != null){
+                    my_info_window.setVisibility(View.VISIBLE);
+                    tv_marker_training_title.setText(trainingProposal.getTitle());
+                    tv_marker_training_author.setText(trainingProposal.getAuthor());
+                    tv_marker_training_datefrom.setText(trainingProposal.getDatetimeFrom());
+                    tv_marker_training_dateto.setText(trainingProposal.getDatetimeTo());
+                }
+                return true;
+            }
         });
 
         mGoogleMap.addCircle(circleOptions);
         mGoogleMap.addMarker(options);
-        mGoogleMap.addMarker(workout1);
-        mGoogleMap.addMarker(workout2);
-
     }
 
     private void getLocationPermisssion(){

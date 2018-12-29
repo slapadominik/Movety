@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.domin.movety.api.MovetyApiClient;
+import com.example.domin.movety.api.output.Location;
 import com.example.domin.movety.api.output.TrainingProposal;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,8 +48,8 @@ public class TrainingHistoryFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstace){
         super.onCreate(savedInstace);
         trainingProposals = new ArrayList<>();
-        trainingProposals.add(new com.example.domin.movety.api.output.TrainingProposal("123", "Plywanie", "Jan Kowalski", "24.12.2018 12:00", "24.12.2018 12:00", "Opis", "5"));
-        trainingProposals.add(new com.example.domin.movety.api.output.TrainingProposal("456", "Rower - wypad letni", "Andrzej Duda", "24.06.2019 12:00", "28.06.2019 12:00", "Opis", "4"));
+        trainingProposals.add(new com.example.domin.movety.api.output.TrainingProposal("123", "Plywanie", "Jan Kowalski", new Location(12.02, 13.04), "24.12.2018 12:00", "24.12.2018 12:00", "Opis", "5"));
+        trainingProposals.add(new com.example.domin.movety.api.output.TrainingProposal("456", "Rower - wypad letni", "Andrzej Duda", new Location(12.02, 13.04),"24.06.2019 12:00", "28.06.2019 12:00", "Opis", "4"));
     }
 
 }
