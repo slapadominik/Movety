@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,6 +31,8 @@ import android.widget.Toast;
 
 import com.example.domin.movety.api.MovetyApiClient;
 import com.example.domin.movety.api.output.TrainingProposal;
+import com.example.domin.movety.api.output.TrainingProposalLike;
+import com.example.domin.movety.security.Authentication;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -91,6 +94,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private TextView tv_marker_training_author;
     private TextView tv_marker_training_datefrom;
     private TextView tv_marker_training_dateto;
+    private Button btn_marker_training_like_btn;
+    private MovetyApiClient client;
 
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -113,6 +118,15 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         tv_marker_training_author = mView.findViewById(R.id.marker_training_author);
         tv_marker_training_datefrom = mView.findViewById(R.id.marker_training_datefrom);
         tv_marker_training_dateto = mView.findViewById(R.id.marker_training_dateto);
+        btn_marker_training_like_btn = mView.findViewById(R.id.marker_training_like_btn);
+        Gson gson = new GsonBuilder().serializeNulls().setDateFormat(DateFormat.LONG).create();
+
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl("https://movetyapi.azurewebsites.net/")
+                .addConverterFactory(GsonConverterFactory.create(gson));
+        Retrofit retrofit = builder.build();
+
+        client = retrofit.create(MovetyApiClient.class);
         getLocationPermisssion();
         return mView;
     }
@@ -138,14 +152,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void getTrainingProposalsFromApi(GoogleMap mGoogleMap){
-        Gson gson = new GsonBuilder().serializeNulls().setDateFormat(DateFormat.LONG).create();
 
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("https://movetyapi.azurewebsites.net/")
-                .addConverterFactory(GsonConverterFactory.create(gson));
-        Retrofit retrofit = builder.build();
-
-        MovetyApiClient client = retrofit.create(MovetyApiClient.class);
         Call<List<com.example.domin.movety.api.output.TrainingProposal>> call = client.getTrainingProposals();
 
         call.enqueue(new Callback<List<com.example.domin.movety.api.output.TrainingProposal>>() {
@@ -163,7 +170,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_bike_map)));
                     mHashMap.put(marker, i);
                 }
-
             }
 
             @Override
@@ -171,6 +177,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 Toast.makeText(getContext(), "Error: cos poszlo nie tak", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     private void initMap(){
@@ -248,6 +255,23 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                     tv_marker_training_author.setText(trainingProposal.getAuthor());
                     tv_marker_training_datefrom.setText(trainingProposal.getDatetimeFrom());
                     tv_marker_training_dateto.setText(trainingProposal.getDatetimeTo());
+                    btn_marker_training_like_btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Call<TrainingProposalLike> call = client.addTrainingProposalLike(Authentication.CLINET_ID, new TrainingProposalLike(Authentication.CLINET_ID, trainingProposal.getId()));
+                            call.enqueue(new Callback<TrainingProposalLike>() {
+                                @Override
+                                public void onResponse(Call<TrainingProposalLike> call, Response<TrainingProposalLike> response) {
+                                    Toast.makeText(getActivity(), "Like added!", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onFailure(Call<TrainingProposalLike> call, Throwable t) {
+                                    Toast.makeText(getActivity(), "Error with adding like", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
                 }
                 return true;
             }
