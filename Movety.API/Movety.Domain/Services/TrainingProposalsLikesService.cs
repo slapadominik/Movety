@@ -5,7 +5,9 @@ using AutoMapper;
 using Movety.Domain.Entities;
 using Movety.Domain.Exceptions;
 using Movety.Domain.Services.Interfaces;
+using Movety.Persistence.DAO;
 using Movety.Persistence.Repositories.Interfaces;
+using Athlethe = Movety.Domain.Entities.Athlethe;
 
 namespace Movety.Domain.Services
 {
@@ -79,6 +81,27 @@ namespace Movety.Domain.Services
             }
 
             return trainingProposals;
+        }
+
+        public void Add(Guid userId, Guid trainingProposalId)
+        {
+            if (_unitOfWork.Athletes.Get(userId) == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            if (_unitOfWork.TrainingProposals.Get(trainingProposalId) == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            TrainingProposalsLikes trainingProposalsLikes = new TrainingProposalsLikes
+                {TrainingProposalsId = trainingProposalId, UserId = userId, Created = DateTime.Now};
+            _unitOfWork.TrainingProposalsLikes.Add(trainingProposalsLikes);
+            if (_unitOfWork.Complete() < 1)
+            {
+                throw new InvalidOperationException();
+            }
         }
     }
 }

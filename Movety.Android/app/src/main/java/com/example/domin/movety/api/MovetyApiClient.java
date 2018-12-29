@@ -2,6 +2,7 @@ package com.example.domin.movety.api;
 
 import com.example.domin.movety.api.output.TrainingProposal;
 import com.example.domin.movety.api.output.TrainingProposalLikes;
+import com.example.domin.movety.api.output.TrainingProposalsLikedByUser;
 
 import java.util.List;
 
@@ -15,4 +16,7 @@ public interface MovetyApiClient {
 
     @GET("/api/trainingproposalslikes/{id}")
     Call<TrainingProposalLikes> getLikesByTrainingProposalId(@Path("id") String id);
+
+    @GET("/api/users/{id}/likes")
+    Call<TrainingProposalsLikedByUser> getLikedTrainingProposalsForUser(@Path("id") String userId);
 }

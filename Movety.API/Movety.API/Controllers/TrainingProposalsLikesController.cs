@@ -33,21 +33,6 @@ namespace Movety.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("user/{id}/likes")]
-        public ActionResult<TrainingProposalsLikedByUser> GetLikedTrainingProposalsByUserId(Guid id)
-        {            
-            var trainingProposalsDomain = _trainingProposalsService.GetLikedTrainingProposalsByUserId(id);
-            if (!trainingProposalsDomain.Any())
-            {
-                return NotFound($"User with id {id} hasn't liked any training proposal yet.");
-            }
 
-            var result = new TrainingProposalsLikedByUser
-            {
-                UserId = id,
-                TrainingProposals = _mapper.Map<List<TrainingProposalResponse>>(trainingProposalsDomain)
-            };
-            return Ok(result);
-        }
     }
 }

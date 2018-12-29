@@ -9,5 +9,6 @@ namespace Movety.Domain.Services.Interfaces
         IEnumerable<TrainingProposalLikes> GetAll();
         TrainingProposalLikes GetByTrainingProposalId(Guid id);
         IEnumerable<TrainingProposal> GetLikedTrainingProposalsByUserId(Guid id);
+        void Add(Guid userId, Guid trainingProposalId);
     }
 }

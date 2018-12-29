@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.example.domin.movety.api.MovetyApiClient;
 import com.example.domin.movety.api.output.TrainingProposal;
+import com.example.domin.movety.api.output.TrainingProposalsLikedByUser;
+import com.example.domin.movety.security.Authentication;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -59,24 +61,26 @@ public class TrainingPendingsFragment extends Fragment {
         Retrofit retrofit = builder.build();
 
         MovetyApiClient client = retrofit.create(MovetyApiClient.class);
-        Call<List<TrainingProposal>> call = client.getTrainingProposals();
+        Call<TrainingProposalsLikedByUser> call = client.getLikedTrainingProposalsForUser(Authentication.CLINET_ID);
 
-        call.enqueue(new Callback<List<TrainingProposal>>() {
+        call.enqueue(new Callback<TrainingProposalsLikedByUser>() {
             @Override
-            public void onResponse(Call<List<com.example.domin.movety.api.output.TrainingProposal>> call, Response<List<TrainingProposal>> response) {
+            public void onResponse(Call<TrainingProposalsLikedByUser> call, Response<TrainingProposalsLikedByUser> response) {
                 Log.i("MOVETYAPI", "size: "+response.body());
-                trainingProposals = response.body();
-                for (int i=0; i<trainingProposals.size(); i++){
-                    Log.i("MOVETYAPI", trainingProposals.get(i).toString());
+                if (response.body() != null){
+                    trainingProposals = response.body().getTrainingProposalList();
+                    for (int i=0; i<trainingProposals.size(); i++){
+                        Log.i("MOVETYAPI", trainingProposals.get(i).toString());
+                    }
+                    RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(), trainingProposals);
+                    myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    myRecyclerView.setAdapter(recyclerViewAdapter);
                 }
-                RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(), trainingProposals);
-                myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                myRecyclerView.setAdapter(recyclerViewAdapter);
             }
 
             @Override
-            public void onFailure(Call<List<com.example.domin.movety.api.output.TrainingProposal>> call, Throwable t) {
-                Toast.makeText(getContext(), "Error: cos poszlo nie tak", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<TrainingProposalsLikedByUser> call, Throwable t) {
+                Toast.makeText(getContext(), "Error: errorrr", Toast.LENGTH_SHORT).show();
             }
         });
     }
