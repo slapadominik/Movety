@@ -12,7 +12,10 @@ namespace Movety.Persistence.DAO
         public int SportFieldId { get; set; }
 
         public string Title { get; set; }
-        public string Author { get; set; }
+        
+        [ForeignKey(nameof(AuthorId))]
+        public User Author { get; set; }
+        public Guid? AuthorId { get; set; }
 
         [ForeignKey(nameof(LocationId))]
         public Location Location { get; set; }

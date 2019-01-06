@@ -46,12 +46,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View v) {
                 Intent intent = new Intent(context, TrainingProposalDetails.class);
                 Bundle extras = new Bundle();
-                String id = trainingProposals.get(vHolder.getAdapterPosition()).getId();
-                String trainingTitle = trainingProposals.get(vHolder.getAdapterPosition()).getTitle();
-                String trainingAuthor = trainingProposals.get(vHolder.getAdapterPosition()).getAuthor();
-                String trainingDatefrom = trainingProposals.get(vHolder.getAdapterPosition()).getDatetimeFrom();
-                String trainingDateto = trainingProposals.get(vHolder.getAdapterPosition()).getDatetimeTo();
-                String trainingDescription = trainingProposals.get(vHolder.getAdapterPosition()).getDescription();
+
+                TrainingProposal trainingProposal = trainingProposals.get(vHolder.getAdapterPosition());
+                String id = trainingProposal.getId();
+                String trainingTitle = trainingProposal.getTitle();
+                String trainingAuthor = trainingProposal.getAuthor().getFirstName()+" "+trainingProposal.getAuthor().getLastName();
+                String trainingDatefrom = trainingProposal.getDatetimeFrom();
+                String trainingDateto = trainingProposal.getDatetimeTo();
+                String trainingDescription = trainingProposal.getDescription();
+
                 Log.i("MOVETYAPI", "Item clicked: "+trainingProposals.get(vHolder.getAdapterPosition()).toString());
                 extras.putString(TRAINING_ID, id);
                 extras.putString(TITLE_TRAINING, trainingTitle);
@@ -68,11 +71,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public void onBindViewHolder(MyViewHolder holder, int position){
-        holder.tv_name.setText(trainingProposals.get(position).getTitle());
-        holder.tv_date.setText(trainingProposals.get(position).getDatetimeFrom());
-        holder.img.setImageResource(R.mipmap.bike);
-        holder.tv_participants.setText(trainingProposals.get(position).getMaxParticipants());
-        holder.tv_author.setText(trainingProposals.get(position).getAuthor());
+        TrainingProposal trainingProposal = trainingProposals.get(position);
+        if (trainingProposal != null){
+            holder.tv_name.setText(trainingProposal.getTitle());
+            holder.tv_date.setText(trainingProposal.getDatetimeFrom());
+            holder.img.setImageResource(R.mipmap.bike);
+            holder.tv_participants.setText(trainingProposal.getMaxParticipants());
+            holder.tv_author.setText(trainingProposal.getAuthor().getFirstName()+" "+trainingProposal.getAuthor().getLastName());
+        }
     }
 
     @Override

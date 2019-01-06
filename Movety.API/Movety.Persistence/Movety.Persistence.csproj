@@ -7,6 +7,7 @@
   <ItemGroup>
     <Compile Remove="Migrations\20181225161325_SeedDataTrainingProposals.cs" />
     <Compile Remove="Migrations\20181225161732_SeedDataTrainingProposals2.cs" />
+    <Compile Remove="Migrations\20190106153318_TrainingProposalAuthorIdAdded.cs" />
   </ItemGroup>
 
   <ItemGroup>

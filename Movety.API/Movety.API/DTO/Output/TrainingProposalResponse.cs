@@ -6,7 +6,7 @@ namespace Movety.API.DTO.Output
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
-        public string Author { get; set; }
+        public AthleteBrief Author { get; set; }
         public SportField SportField { get; set; }
         public Location Location { get; set; }
         public DateTime DatetimeFrom { get; set; }

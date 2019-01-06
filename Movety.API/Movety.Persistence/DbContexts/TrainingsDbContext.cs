@@ -58,61 +58,23 @@ namespace Movety.Persistence.DbContexts
             var location1 = Guid.NewGuid();
             var location2 = Guid.NewGuid();
             var location3 = Guid.NewGuid();
+            var location4 = Guid.NewGuid();
+            var location5 = Guid.NewGuid();
+            var location6 = Guid.NewGuid();
+            var location7 = Guid.NewGuid();
 
             modelBuilder.Entity<Location>().HasData(new Location { Id = location1, Created = DateTime.Now, Latitude = 50.102075, Longitude = 18.509135 });
             modelBuilder.Entity<Location>().HasData(new Location { Id = location2, Created = DateTime.Now, Latitude = 50.094845, Longitude = 18.519753 });
             modelBuilder.Entity<Location>().HasData(new Location { Id = Guid.NewGuid(), Created = DateTime.Now, Latitude = 88.107883, Longitude = 40.038538 });
             modelBuilder.Entity<Location>().HasData(new Location { Id = location3, Created = DateTime.Now, Latitude = 51.114697, Longitude = 17.046592 });
+            modelBuilder.Entity<Location>().HasData(new Location { Id = location4, Created = DateTime.Now, Latitude = 51.087727, Longitude = 17.032026 });
+            modelBuilder.Entity<Location>().HasData(new Location { Id = location5, Created = DateTime.Now, Latitude = 51.091599, Longitude = 17.019652 });
+            modelBuilder.Entity<Location>().HasData(new Location { Id = location6, Created = DateTime.Now, Latitude = 51.113126, Longitude = 17.069683 });
 
             modelBuilder.Entity<SportField>().HasData(new SportField { Id = 1, Created = DateTime.Now, Name = "cycling" });
             modelBuilder.Entity<SportField>().HasData(new SportField { Id = 2, Created = DateTime.Now, Name = "swimming" });
             modelBuilder.Entity<SportField>().HasData(new SportField { Id = 3, Created = DateTime.Now, Name = "climbing" });
             modelBuilder.Entity<SportField>().HasData(new SportField { Id = 4, Created = DateTime.Now, Name = "iceskating" });
-
-            var trainingProposalId1 = Guid.NewGuid();
-            var trainingProposalId2 = Guid.NewGuid();
-
-            modelBuilder.Entity<TrainingProposals>().HasData(new TrainingProposals
-            {
-                Id = trainingProposalId1,
-                Title = "Rower we Wro!",
-                Author = "Jan Kowalski",
-                Created = DateTime.Now,
-                DatetimeFrom = new DateTime(2019, 5, 3, 8, 20, 0),
-                DatetimeTo = new DateTime(2019, 5, 3, 8, 20, 0),
-                Description = "Lorem ipsum lorem ipsum",
-                SportFieldId = 1,
-                MaxParticipants = 4,
-                LocationId = location1
-            });
-
-            modelBuilder.Entity<TrainingProposals>().HasData(new TrainingProposals
-            {
-                Id = trainingProposalId2,
-                Title = "Wspinaczka na Tarnogaju",
-                Author = "Kamil Jacewicz",
-                Created = DateTime.Now,
-                DatetimeFrom = new DateTime(2020, 3, 5, 15, 20, 0),
-                DatetimeTo = new DateTime(2020, 3, 5, 17, 20, 0),
-                Description = "Lorem ipsum lorem ipsum2",
-                SportFieldId = 2,
-                MaxParticipants = 5,
-                LocationId = location2
-            });
-
-            modelBuilder.Entity<TrainingProposals>().HasData(new TrainingProposals
-            {
-                Id = Guid.NewGuid(),
-                Title = "Łyżwy w Pszowie",
-                Author = "Anna Kowalska",
-                Created = DateTime.Now,
-                DatetimeFrom = new DateTime(2019, 4, 12, 15, 20, 0),
-                DatetimeTo = new DateTime(2019, 4, 12, 17, 20, 0),
-                Description = "Zapraszam wszystkich na łyżwy na godzinę 19:30. ",
-                SportFieldId = 4,
-                MaxParticipants = 10,
-                LocationId = location3
-            });
 
             var userId1 = Guid.NewGuid();
             var userId2 = Guid.NewGuid();
@@ -211,6 +173,66 @@ namespace Movety.Persistence.DbContexts
                     FirstName = "Damian",
                     LastName = "Nowak"
                 });
+
+
+            var trainingProposalId1 = Guid.NewGuid();
+            var trainingProposalId2 = Guid.NewGuid();
+
+            modelBuilder.Entity<TrainingProposals>().HasData(new TrainingProposals
+            {
+                Id = trainingProposalId1,
+                Title = "Rower we Wro!",
+                AuthorId = userId4,
+                Created = DateTime.Now,
+                DatetimeFrom = new DateTime(2019, 5, 3, 8, 20, 0),
+                DatetimeTo = new DateTime(2019, 5, 3, 8, 20, 0),
+                Description = "Lorem ipsum lorem ipsum",
+                SportFieldId = 1,
+                MaxParticipants = 4,
+                LocationId = location6
+            });
+
+            modelBuilder.Entity<TrainingProposals>().HasData(new TrainingProposals
+            {
+                Id = trainingProposalId2,
+                Title = "Wspinaczka na Tarnogaju",
+                AuthorId = userId4,
+                Created = DateTime.Now,
+                DatetimeFrom = new DateTime(2020, 3, 5, 15, 20, 0),
+                DatetimeTo = new DateTime(2020, 3, 5, 17, 20, 0),
+                Description = "Lorem ipsum lorem ipsum2",
+                SportFieldId = 2,
+                MaxParticipants = 5,
+                LocationId = location5
+            });
+
+            modelBuilder.Entity<TrainingProposals>().HasData(new TrainingProposals
+            {
+                Id = Guid.NewGuid(),
+                Title = "Łyżwy w Pszowie",
+                AuthorId = userId1,
+                Created = DateTime.Now,
+                DatetimeFrom = new DateTime(2019, 4, 12, 15, 20, 0),
+                DatetimeTo = new DateTime(2019, 4, 12, 17, 20, 0),
+                Description = "Zapraszam wszystkich na łyżwy na godzinę 19:30. ",
+                SportFieldId = 4,
+                MaxParticipants = 10,
+                LocationId = location3
+            });
+
+            modelBuilder.Entity<TrainingProposals>().HasData(new TrainingProposals
+            {
+                Id = Guid.NewGuid(),
+                Title = "Rolki na rampie",
+                AuthorId = userId2,
+                Created = DateTime.Now,
+                DatetimeFrom = new DateTime(2019, 5, 3, 8, 20, 0),
+                DatetimeTo = new DateTime(2019, 5, 3, 8, 20, 0),
+                Description = "Lorem ipsum lorem ipsum",
+                SportFieldId = 1,
+                MaxParticipants = 6,
+                LocationId = location4
+            });
 
             modelBuilder.Entity<TrainingProposalsLikes>().HasData(
                 new TrainingProposalsLikes { TrainingProposalsId = trainingProposalId1, UserId = userId1 });

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Movety.Persistence.DbContexts;
 
 namespace Movety.Persistence.Migrations
 {
     [DbContext(typeof(TrainingsDbContext))]
-    partial class TrainingsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190106154257_TrainingProposalAuthorIdAdded")]
+    partial class TrainingProposalAuthorIdAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

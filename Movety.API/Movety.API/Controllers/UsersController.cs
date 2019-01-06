@@ -14,11 +14,13 @@ namespace Movety.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly ITrainingProposalsLikesService _trainingProposalLikesService;
+        private readonly ITrainingProposalsService _trainingProposalsService;
         private readonly IMapper _mapper;
 
-        public UsersController(ITrainingProposalsLikesService trainingProposalsLikesService, IMapper mapper)
+        public UsersController(ITrainingProposalsLikesService trainingProposalsLikesService, ITrainingProposalsService trainingProposalsService, IMapper mapper)
         {
             _trainingProposalLikesService = trainingProposalsLikesService;
+            _trainingProposalsService = trainingProposalsService;
             _mapper = mapper;
         }
 
@@ -40,13 +42,33 @@ namespace Movety.API.Controllers
         }
 
         // POST api/values
-        [HttpPost("{id}/likes")]
+        [HttpPost("likes")]
         public ActionResult<TrainingProposalLike> AddTrainingProposalLike([FromBody] TrainingProposalLike trainingProposalLike)
         {
             try
             {
                 _trainingProposalLikesService.Add(trainingProposalLike.UserId, trainingProposalLike.TrainingProposalId);
                 return CreatedAtAction("GetLikedTrainingProposalsByUserId", trainingProposalLike);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("{id}/trainingproposals")]
+        public ActionResult<TrainingProposalResponse> GetNewTrainingProposalsForUser(Guid id)
+        {
+            try
+            {
+                var trainingProposalsDomain = _trainingProposalsService.GetNewTrainingProposalsForUser(id);
+                if (!trainingProposalsDomain.Any())
+                {
+                    return NotFound($"None new training proposals has been found for User {id} .");
+                }
+
+                var trainingProposalResponses = _mapper.Map<List<TrainingProposalResponse>>(trainingProposalsDomain);
+                return Ok(trainingProposalResponses);
             }
             catch (Exception ex)
             {

@@ -10,7 +10,8 @@ namespace Movety.API
     {
         public MappingAPIProfile()
         {
-            CreateMap<Domain.Entities.TrainingProposal, TrainingProposalResponse>();
+            CreateMap<Domain.Entities.TrainingProposal, TrainingProposalResponse>()
+                .ForMember(x => x.Author, opt => opt.MapFrom(src => src.Author));
             CreateMap<Domain.Entities.Location, DTO.Output.Location>();
             CreateMap<Domain.Entities.SportField, DTO.Output.SportField>();
             CreateMap<Domain.Entities.TrainingProposalLikes, DTO.Output.TrainingProposalLikes>()

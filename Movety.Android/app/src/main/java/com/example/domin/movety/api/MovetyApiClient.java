@@ -15,15 +15,15 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface MovetyApiClient {
-    @GET("/api/trainingproposals")
-    Call<List<TrainingProposal>> getTrainingProposals();
-
-    @GET("/api/trainingproposalslikes/{id}")
+    @GET("/api/trainingproposals/{id}/likes")
     Call<TrainingProposalLikes> getLikesByTrainingProposalId(@Path("id") String id);
 
     @GET("/api/users/{id}/likes")
     Call<TrainingProposalsLikedByUser> getLikedTrainingProposalsForUser(@Path("id") String userId);
 
-    @POST("/api/users/{id}/likes")
-    Call<TrainingProposalLike> addTrainingProposalLike(@Path("id") String userId, @Body TrainingProposalLike like);
+    @GET("/api/users/{id}/trainingproposals")
+    Call<List<TrainingProposal>> getNewTrainingProposalsForUser(@Path("id") String userId);
+
+    @POST("/api/users/likes")
+    Call<TrainingProposalLike> addTrainingProposalLike(@Body TrainingProposalLike like);
 }

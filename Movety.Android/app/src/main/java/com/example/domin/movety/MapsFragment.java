@@ -153,14 +153,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
     private void getTrainingProposalsFromApi(GoogleMap mGoogleMap){
 
-        Call<List<com.example.domin.movety.api.output.TrainingProposal>> call = client.getTrainingProposals();
+        Call<List<com.example.domin.movety.api.output.TrainingProposal>> call = client.getNewTrainingProposalsForUser(Authentication.CLINET_ID);
 
         call.enqueue(new Callback<List<com.example.domin.movety.api.output.TrainingProposal>>() {
             @Override
             public void onResponse(Call<List<com.example.domin.movety.api.output.TrainingProposal>> call, Response<List<TrainingProposal>> response) {
                 Log.i("MOVETYAPI", "size: "+response.body());
                 trainingProposals = response.body();
-                Toast.makeText(getContext(), "Success map training prop", Toast.LENGTH_SHORT).show();
                 for (int i=0; i<trainingProposals.size(); i++){
                     Log.i("MOVETYAPI", trainingProposals.get(i).toString());
                     TrainingProposal trainingprop = trainingProposals.get(i);
@@ -252,13 +251,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 if (trainingProposal != null){
                     my_info_window.setVisibility(View.VISIBLE);
                     tv_marker_training_title.setText(trainingProposal.getTitle());
-                    tv_marker_training_author.setText(trainingProposal.getAuthor());
+                    tv_marker_training_author.setText(trainingProposal.getAuthor().getFirstName()+" "+trainingProposal.getAuthor().getLastName());
                     tv_marker_training_datefrom.setText(trainingProposal.getDatetimeFrom());
                     tv_marker_training_dateto.setText(trainingProposal.getDatetimeTo());
                     btn_marker_training_like_btn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Call<TrainingProposalLike> call = client.addTrainingProposalLike(Authentication.CLINET_ID, new TrainingProposalLike(Authentication.CLINET_ID, trainingProposal.getId()));
+                            Call<TrainingProposalLike> call = client.addTrainingProposalLike(new TrainingProposalLike(Authentication.CLINET_ID, trainingProposal.getId()));
                             call.enqueue(new Callback<TrainingProposalLike>() {
                                 @Override
                                 public void onResponse(Call<TrainingProposalLike> call, Response<TrainingProposalLike> response) {

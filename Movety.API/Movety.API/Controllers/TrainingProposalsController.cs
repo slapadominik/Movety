@@ -14,17 +14,19 @@ namespace Movety.API.Controllers
     public class TrainingProposalsController : ControllerBase
     {
         private readonly ITrainingProposalsService _trainingProposalsService;
+        private readonly ITrainingProposalsLikesService _trainingProposalLikesService;
         private readonly IMapper _mapper;
 
-        public TrainingProposalsController(ITrainingProposalsService trainingProposalsService, IMapper mapper)
+        public TrainingProposalsController(ITrainingProposalsService trainingProposalsService, ITrainingProposalsLikesService trainingProposalLikesService, IMapper mapper)
         {
             _trainingProposalsService = trainingProposalsService;
+            _trainingProposalLikesService = trainingProposalLikesService;
             _mapper = mapper;
         }
 
 
         [HttpGet]
-        public ActionResult<TrainingProposalResponse> Get()
+        public ActionResult<TrainingProposalResponse> GetAll()
         {
             try
             {
@@ -39,7 +41,7 @@ namespace Movety.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<TrainingProposalResponse> Get(Guid id)
+        public ActionResult<TrainingProposalResponse> GetById(Guid id)
         {
             try
             {
@@ -53,21 +55,16 @@ namespace Movety.API.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult Post([FromBody] TrainingProposalAddRequest request)
+        [HttpGet("{id}/likes")]
+        public ActionResult<DTO.Output.TrainingProposalLikes> GetLikesByTrainingProposalId(Guid id)
         {
-            var trainingProposal = _mapper.Map<TrainingProposal>(request);
-
-            try
+            var trainingProposalsLikeDomain = _trainingProposalLikesService.GetByTrainingProposalId(id);
+            if (trainingProposalsLikeDomain == null)
             {
-                _trainingProposalsService.Add(trainingProposal);
+                return NotFound($"Training proposal with id [{id}] doesn't have likes.");
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-
-            return Ok();
+            var response = _mapper.Map<DTO.Output.TrainingProposalLikes>(trainingProposalsLikeDomain);
+            return Ok(response);
         }
 
     }

@@ -8,6 +8,8 @@ using Movety.Domain.Services.Interfaces;
 using Movety.Persistence.DAO;
 using Movety.Persistence.Repositories.Interfaces;
 using Athlethe = Movety.Domain.Entities.Athlethe;
+using Location = Movety.Domain.Entities.Location;
+using SportField = Movety.Domain.Entities.SportField;
 
 namespace Movety.Domain.Services
 {
@@ -77,7 +79,16 @@ namespace Movety.Domain.Services
             foreach (var like in trainingProposalsLikesDAO)
             {
                 var trainingProposalDAO = _unitOfWork.TrainingProposals.Get(like.TrainingProposalsId);
-                trainingProposals.Add(_mapper.Map<TrainingProposal>(trainingProposalDAO));
+                var trainingProposal = _mapper.Map<TrainingProposal>(trainingProposalDAO);
+                trainingProposal.SportField = _mapper.Map<SportField>(_unitOfWork.SportFields.Get(trainingProposalDAO.SportFieldId));
+                trainingProposal.Location = _mapper.Map<Location>(_unitOfWork.Locations.Get(trainingProposalDAO.LocationId));
+
+                if (trainingProposalDAO.AuthorId.HasValue)
+                {
+                    Movety.Persistence.DAO.Athlethe authorDAO = _unitOfWork.Athletes.Get(trainingProposalDAO.AuthorId.Value);
+                    trainingProposal.Author = _mapper.Map<Athlethe>(authorDAO);
+                }
+                trainingProposals.Add(trainingProposal);
             }
 
             return trainingProposals;

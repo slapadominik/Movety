@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Movety.Domain.Entities;
 using Movety.Domain.Exceptions;
@@ -21,13 +22,6 @@ namespace Movety.Domain.Services
             _mapper = mapper;
         }
 
-        public void Add(TrainingProposal trainingProposal)
-        {
-            var trainingProposalDAO = _mapper.Map<Persistence.DAO.TrainingProposals>(trainingProposal);
-            _unitOfWork.TrainingProposals.Add(trainingProposalDAO);
-            _unitOfWork.Complete();
-        }
-
         public TrainingProposal Get(Guid id)
         {
             var trainingProposalDAO = _unitOfWork.TrainingProposals.Get(id);
@@ -46,13 +40,16 @@ namespace Movety.Domain.Services
             {
                 throw new LocationNotFoundException($"Nie istnieje lokalizacja o podanym ID");
             }
-
+          
             var trainingProposal = _mapper.Map<TrainingProposal>(trainingProposalDAO);
-            var sportField = _mapper.Map<SportField>(sportFieldDAO);
-            var location = _mapper.Map<Location>(locationDAO);
+            trainingProposal.SportField = _mapper.Map<SportField>(sportFieldDAO);
+            trainingProposal.Location = _mapper.Map<Location>(locationDAO);
 
-            trainingProposal.SportField = sportField;
-            trainingProposal.Location = location;
+            if (trainingProposalDAO.AuthorId.HasValue)
+            {
+                Movety.Persistence.DAO.Athlethe authorDAO = _unitOfWork.Athletes.Get(trainingProposalDAO.AuthorId.Value);
+                trainingProposal.Author = _mapper.Map<Athlethe>(authorDAO);
+            }
 
             return trainingProposal;
         }
@@ -67,22 +64,42 @@ namespace Movety.Domain.Services
                 var trainingProposal = _mapper.Map<TrainingProposal>(trainingProposalDAO);
                 trainingProposal.SportField = _mapper.Map<SportField>(_unitOfWork.SportFields.Get(trainingProposalDAO.SportFieldId));
                 trainingProposal.Location = _mapper.Map<Location>(_unitOfWork.Locations.Get(trainingProposalDAO.LocationId));
+
+                if (trainingProposalDAO.AuthorId.HasValue)
+                {
+                    Movety.Persistence.DAO.Athlethe authorDAO = _unitOfWork.Athletes.Get(trainingProposalDAO.AuthorId.Value);
+                    trainingProposal.Author = _mapper.Map<Athlethe>(authorDAO);
+                }
+
                 trainingProposals.Add(trainingProposal);
             }
 
             return trainingProposals;
         }
 
-        public IEnumerable<TrainingProposal> Find(Func<TrainingProposal, bool> predicate)
+        public IEnumerable<TrainingProposal> GetNewTrainingProposalsForUser(Guid id)
         {
-            //return _unitOfWork.TrainingProposals.Find(predicate);
-            return null;
-        }
+            List<TrainingProposal> trainingProposals = new List<TrainingProposal>();
+            var trainingProposalsDAO = _unitOfWork.TrainingProposals.GetAll();
+            var trainingProposalIdsLikedByUser = _unitOfWork.TrainingProposalsLikes.Find(x => x.UserId == id)
+                .Select(x => x.TrainingProposalsId).ToArray();
 
-        public void Remove(TrainingProposal trainingProposals)
-        {
-            //_unitOfWork.TrainingProposals.Remove(trainingProposals);
-            _unitOfWork.Complete();
+            foreach (var trainingProposalDAO in trainingProposalsDAO.Where(x => !trainingProposalIdsLikedByUser.Contains(x.Id)))
+            {
+                var trainingProposal = _mapper.Map<TrainingProposal>(trainingProposalDAO);
+                trainingProposal.SportField = _mapper.Map<SportField>(_unitOfWork.SportFields.Get(trainingProposalDAO.SportFieldId));
+                trainingProposal.Location = _mapper.Map<Location>(_unitOfWork.Locations.Get(trainingProposalDAO.LocationId));
+
+                if (trainingProposalDAO.AuthorId.HasValue)
+                {
+                    Movety.Persistence.DAO.Athlethe authorDAO = _unitOfWork.Athletes.Get(trainingProposalDAO.AuthorId.Value);
+                    trainingProposal.Author = _mapper.Map<Athlethe>(authorDAO);
+                }
+
+                trainingProposals.Add(trainingProposal);
+            }
+
+            return trainingProposals;
         }
     }
 }
