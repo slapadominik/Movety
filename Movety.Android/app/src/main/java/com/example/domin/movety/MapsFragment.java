@@ -87,7 +87,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private String TAG = "MAPS_TAG";
     private static final float DEFAULT_ZOOM = 15f;
-    private ConstraintLayout my_info_window;
+    private ConstraintLayout trainingProposalDetailsView;
     private List<com.example.domin.movety.api.output.TrainingProposal> trainingProposals = new ArrayList<>();
     private HashMap<Marker, Integer> mHashMap = new HashMap<Marker, Integer>();
     private TextView tv_marker_training_title;
@@ -113,7 +113,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_maps, container, false);
-        my_info_window = mView.findViewById(R.id.my_info_window);
+        trainingProposalDetailsView = mView.findViewById(R.id.my_info_window);
         tv_marker_training_title = mView.findViewById(R.id.marker_training_title);
         tv_marker_training_author = mView.findViewById(R.id.marker_training_author);
         tv_marker_training_datefrom = mView.findViewById(R.id.marker_training_datefrom);
@@ -240,7 +240,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                my_info_window.setVisibility(View.GONE);
+                trainingProposalDetailsView.setVisibility(View.GONE);
             }
         });
         mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -249,7 +249,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 int pos = mHashMap.get(marker);
                 TrainingProposal trainingProposal = trainingProposals.get(pos);
                 if (trainingProposal != null){
-                    my_info_window.setVisibility(View.VISIBLE);
+                    trainingProposalDetailsView.setVisibility(View.VISIBLE);
                     tv_marker_training_title.setText(trainingProposal.getTitle());
                     tv_marker_training_author.setText(trainingProposal.getAuthor().getFirstName()+" "+trainingProposal.getAuthor().getLastName());
                     tv_marker_training_datefrom.setText(trainingProposal.getDatetimeFrom());

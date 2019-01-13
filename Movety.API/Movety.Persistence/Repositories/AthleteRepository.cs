@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Movety.Persistence.DAO;
 using Movety.Persistence.DbContexts;
@@ -13,6 +14,11 @@ namespace Movety.Persistence.Repositories
         public AthleteRepository(TrainingsDbContext context)
         {
             _context = context;
+        }
+
+        public IEnumerable<Athlethe> GetAll()
+        {
+            return _context.Athlethes.ToList();
         }
 
         public Athlethe Get(Guid userId)

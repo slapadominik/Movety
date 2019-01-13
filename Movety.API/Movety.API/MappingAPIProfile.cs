@@ -19,6 +19,9 @@ namespace Movety.API
 
             CreateMap<Athlethe, AthleteBrief>()
                 .ForMember(dest => dest.Age, opt => opt.MapFrom(src => DateTime.Now.Year - src.Birthdate.Year));
+            CreateMap<Domain.Entities.TrainingProposalAcceptance, DTO.Input.TrainingProposalAcceptance>();
+            CreateMap<DTO.Input.TrainingProposalAcceptance, Domain.Entities.TrainingProposalAcceptance>();
+
         }
     }
 }

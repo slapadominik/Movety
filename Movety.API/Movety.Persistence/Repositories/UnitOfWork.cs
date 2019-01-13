@@ -10,6 +10,7 @@ namespace Movety.Persistence.Repositories
         public ITrainingProposalsRepository TrainingProposals { get; }
         public ITrainingProposalsLikesRepository TrainingProposalsLikes { get; }
         public IAthleteRepository Athletes { get; }
+        public ITrainingProposalsAcceptanceRepository Acceptances { get; }
 
         private readonly TrainingsDbContext _context;
 
@@ -21,6 +22,7 @@ namespace Movety.Persistence.Repositories
             TrainingProposals = new TrainingProposalsRepository(context);
             TrainingProposalsLikes = new TrainingProposalsLikesRepository(context);
             Athletes = new AthleteRepository(context);
+            Acceptances = new TrainingProposalsAcceptanceRepository(context);
         }
 
         public int Complete()

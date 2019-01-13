@@ -48,10 +48,11 @@ namespace Movety.API
             services.AddSingleton(mapper);
             services.AddScoped<ITrainingProposalsService, TrainingProposalsService>();
             services.AddScoped<ITrainingProposalsLikesService, TrainingProposalsLikesService>();
-
+            services.AddScoped<IAthleteService, AthleteService>();
+            services.AddScoped<ITrainingProposalsAcceptanceService, TrainingProposalsAcceptanceService>();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "Movety.API", Version = "v1" });
                 c.CustomSchemaIds(x => x.FullName);
             });
 

@@ -9,6 +9,7 @@ namespace Movety.Persistence.Repositories.Interfaces
         ITrainingProposalsRepository TrainingProposals { get; }
         ITrainingProposalsLikesRepository TrainingProposalsLikes { get; }
         IAthleteRepository Athletes { get; }
+        ITrainingProposalsAcceptanceRepository Acceptances { get;  }
         int Complete();
     }
 }

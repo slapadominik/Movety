@@ -18,6 +18,9 @@ namespace Movety.Domain
 
             CreateMap<Athlethe, Persistence.DAO.Athlethe>();
             CreateMap<Persistence.DAO.Athlethe, Athlethe>();
+
+            CreateMap<TrainingProposalAcceptance, Persistence.DAO.TrainingProposalsAcceptance>();
+            CreateMap<Persistence.DAO.TrainingProposalsAcceptance, TrainingProposalAcceptance>();
         }
     }
 }

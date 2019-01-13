@@ -55,11 +55,6 @@ namespace Movety.Domain.Services
             List<Athlethe> athletes = new List<Athlethe>();
             var trainingProposalsLikesDAO = _unitOfWork.TrainingProposalsLikes.GetByTrainingProposalId(id);
 
-            if (!trainingProposalsLikesDAO.Any())
-            {
-                return null;
-            }
-
             foreach (var like in trainingProposalsLikesDAO)
             {
                 var athleteDAO = _unitOfWork.Athletes.Get(like.UserId);
@@ -98,18 +93,18 @@ namespace Movety.Domain.Services
         {
             if (_unitOfWork.Athletes.Get(userId) == null)
             {
-                throw new InvalidOperationException();
+                throw new UserNotFoundException();
             }
 
             if (_unitOfWork.TrainingProposals.Get(trainingProposalId) == null)
             {
-                throw new InvalidOperationException();
+                throw new TrainingProposalNotFoundException();
             }
 
             TrainingProposalsLikes trainingProposalsLikes = new TrainingProposalsLikes
                 {TrainingProposalsId = trainingProposalId, UserId = userId, Created = DateTime.Now};
             _unitOfWork.TrainingProposalsLikes.Add(trainingProposalsLikes);
-            if (_unitOfWork.Complete() < 1)
+            if (_unitOfWork.Complete() != 1)
             {
                 throw new InvalidOperationException();
             }

@@ -15,13 +15,30 @@ namespace Movety.API.Controllers
     {
         private readonly ITrainingProposalsLikesService _trainingProposalLikesService;
         private readonly ITrainingProposalsService _trainingProposalsService;
+        private readonly IAthleteService _athleteService;
         private readonly IMapper _mapper;
 
-        public UsersController(ITrainingProposalsLikesService trainingProposalsLikesService, ITrainingProposalsService trainingProposalsService, IMapper mapper)
+        public UsersController(ITrainingProposalsLikesService trainingProposalsLikesService, ITrainingProposalsService trainingProposalsService, IAthleteService athleteService, IMapper mapper)
         {
             _trainingProposalLikesService = trainingProposalsLikesService;
             _trainingProposalsService = trainingProposalsService;
+            _athleteService = athleteService;
             _mapper = mapper;
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<AthleteBrief>> GetAllUsers()
+        {
+            try
+            {
+                List<AthleteBrief> athletes = new List<AthleteBrief>();
+                athletes = _mapper.Map<List<AthleteBrief>>(_athleteService.GetAll());
+                return Ok(athletes);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("{id}/likes")]
@@ -41,7 +58,6 @@ namespace Movety.API.Controllers
             return Ok(result);
         }
 
-        // POST api/values
         [HttpPost("likes")]
         public ActionResult<TrainingProposalLike> AddTrainingProposalLike([FromBody] TrainingProposalLike trainingProposalLike)
         {
@@ -52,12 +68,15 @@ namespace Movety.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
 
+
+
+
         [HttpGet("{id}/trainingproposals")]
-        public ActionResult<TrainingProposalResponse> GetNewTrainingProposalsForUser(Guid id)
+        public ActionResult<List<TrainingProposalResponse>> GetNewTrainingProposalsForUser([FromRoute] Guid id)
         {
             try
             {
@@ -72,7 +91,7 @@ namespace Movety.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
     }

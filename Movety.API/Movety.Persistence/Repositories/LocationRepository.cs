@@ -15,11 +15,6 @@ namespace Movety.Persistence.Repositories
             _context = context;
         }
 
-        public void Add(Location location)
-        {
-            throw new NotImplementedException();
-        }
-
         public Location Get(Guid id)
         {
             return _context.Locations.SingleOrDefault(x => x.Id == id);
